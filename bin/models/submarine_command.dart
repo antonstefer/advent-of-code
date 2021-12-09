@@ -2,11 +2,11 @@ enum Direction { up, down, forward }
 
 class SubmarineCommand {
   final Direction direction;
-  final int magnitude;
+  final int value;
 
   SubmarineCommand({
     required this.direction,
-    required this.magnitude,
+    required this.value,
   });
 
   factory SubmarineCommand.fromString(String command) {
@@ -21,10 +21,10 @@ class SubmarineCommand {
         (d) => d.toString().split('.')[1] == parts[0],
         orElse: () => throw FormatException('Invalid direction: ${parts[0]}'),
       ),
-      magnitude: int.parse(parts[1]),
+      value: int.parse(parts[1]),
     );
   }
 
   @override
-  String toString() => '$direction $magnitude';
+  String toString() => '$direction $value';
 }

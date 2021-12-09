@@ -7,8 +7,5 @@ void three() {
   for (final command in input) {
     submarine.execute(command);
   }
-  final output = 'Horizontal: ${submarine.horizontal}\n'
-      'Vertical: ${submarine.depth}\n'
-      'Product: ${submarine.horizontal * submarine.depth}';
-  print(output);
+  print(submarine.status);
 }
