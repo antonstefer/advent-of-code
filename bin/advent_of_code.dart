@@ -1,6 +1,7 @@
 import 'tasks/five.dart';
 import 'tasks/four.dart';
 import 'tasks/one.dart';
+import 'tasks/six.dart';
 import 'tasks/three.dart';
 import 'tasks/two.dart';
 
@@ -10,6 +11,7 @@ final tasks = [
   () => three(),
   () => four(),
   () => five(),
+  () => six(),
 ];
 
 void main(List<String> arguments) {

@@ -35,6 +35,32 @@ List<bool> findMostCommonBits(List<List<bool>> input) {
   return occurrences.map((i) => i > input.length ~/ 2).toList();
 }
 
+List<bool> reduceByBitCriteria(List<List<bool>> input, bool mostCommon) {
+  final rowLength = input[0].length;
+  var result = input;
+  for (var i = 0; i < rowLength; i++) {
+    final trueRows = result.where((row) => row[i]).toList();
+    final falseRows = result.where((row) => !row[i]).toList();
+    if (trueRows.isEmpty || falseRows.isEmpty) {
+      continue;
+    }
+    if (trueRows.length >= falseRows.length) {
+      if (mostCommon) {
+        result = trueRows;
+      } else {
+        result = falseRows;
+      }
+    } else {
+      if (mostCommon) {
+        result = falseRows;
+      } else {
+        result = trueRows;
+      }
+    }
+  }
+  return result.first;
+}
+
 int binaryToDecimal(List<bool> input) {
   int decimal = 0;
   for (int i = 0; i < input.length; i++) {
