@@ -1,5 +1,21 @@
 import 'tasks/one.dart';
+import 'tasks/two.dart';
+
+final tasks = [
+  () => one(),
+  () => two(),
+];
 
 void main(List<String> arguments) {
-  one();
+  if (arguments.isEmpty) {
+    print('Please provide task index');
+    return;
+  } else {
+    final taskIndex = (int.tryParse(arguments.first) ?? 0) - 1;
+    if (taskIndex < 0 || taskIndex >= tasks.length) {
+      print('Task index out of range');
+      return;
+    }
+    tasks[taskIndex]();
+  }
 }
