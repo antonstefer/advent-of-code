@@ -1,9 +1,11 @@
 import 'tasks/one.dart';
+import 'tasks/three.dart';
 import 'tasks/two.dart';
 
 final tasks = [
   () => one(),
   () => two(),
+  () => three(),
 ];
 
 void main(List<String> arguments) {
