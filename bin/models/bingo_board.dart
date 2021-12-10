@@ -1,10 +1,11 @@
 class BingoBoard {
-  final List<List<int>> numbers;
+  final List<List<int>> _numbers;
   final List<List<bool>> _isMarked =
       List.generate(5, (_) => List.generate(5, (_) => false));
   int? _winningNumber;
+  bool _won = false;
 
-  BingoBoard({required this.numbers});
+  BingoBoard({required List<List<int>> numbers}) : _numbers = numbers;
 
   factory BingoBoard.fromString(String boardString) {
     final numbers = boardString.split('\n').map((row) {
@@ -19,7 +20,7 @@ class BingoBoard {
   void _markNumber(int number) {
     for (var i = 0; i < 5; i++) {
       for (var j = 0; j < 5; j++) {
-        if (numbers[i][j] == number) {
+        if (_numbers[i][j] == number) {
           _isMarked[i][j] = true;
         }
       }
@@ -59,6 +60,7 @@ class BingoBoard {
   bool drawNumber(int number) {
     _markNumber(number);
     if (_hasWon()) {
+      _won = true;
       _winningNumber = number;
       return true;
     }
@@ -72,7 +74,7 @@ class BingoBoard {
     for (var i = 0; i < 5; i++) {
       for (var j = 0; j < 5; j++) {
         if (!_isMarked[i][j]) {
-          score += numbers[i][j];
+          score += _numbers[i][j];
         }
       }
     }
@@ -80,9 +82,11 @@ class BingoBoard {
     return score * (_winningNumber ?? 0);
   }
 
+  bool get won => _won;
+
   @override
   String toString() {
-    return numbers.map((row) {
+    return _numbers.map((row) {
       return row.join(' ');
     }).join('\n');
   }

@@ -1,10 +1,14 @@
 import 'bingo_board.dart';
 
 class BingoGame {
-  final List<int> numbers;
-  final List<BingoBoard> boards;
+  final List<int> _numbers;
+  final List<BingoBoard> _boards;
 
-  BingoGame({required this.numbers, required this.boards});
+  BingoGame({
+    required List<int> numbers,
+    required List<BingoBoard> boards,
+  })  : _numbers = numbers,
+        _boards = boards;
 
   factory BingoGame.fromString(String input) {
     final blocks = input.split('\n\n');
@@ -16,8 +20,8 @@ class BingoGame {
   }
 
   BingoBoard? findWinner() {
-    for (final number in numbers) {
-      for (final board in boards) {
+    for (final number in _numbers) {
+      for (final board in _boards) {
         if (board.drawNumber(number)) {
           return board;
         }
@@ -25,8 +29,21 @@ class BingoGame {
     }
   }
 
+  BingoBoard? findLastWinner() {
+    BingoBoard? lastWinner;
+    final tempBoards = _boards.toList();
+    for (final number in _numbers) {
+      for (var i = 0; i < tempBoards.length; i++) {
+        if (!tempBoards[i].won && tempBoards[i].drawNumber(number)) {
+          lastWinner = tempBoards[i];
+        }
+      }
+    }
+    return lastWinner;
+  }
+
   @override
   String toString() {
-    return '$numbers\n\n${boards.join('\n\n')}';
+    return '$_numbers\n\n${_boards.join('\n\n')}';
   }
 }
