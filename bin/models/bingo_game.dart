@@ -15,6 +15,16 @@ class BingoGame {
     );
   }
 
+  BingoBoard? findWinner() {
+    for (final number in numbers) {
+      for (final board in boards) {
+        if (board.drawNumber(number)) {
+          return board;
+        }
+      }
+    }
+  }
+
   @override
   String toString() {
     return '$numbers\n\n${boards.join('\n\n')}';

@@ -5,5 +5,7 @@ import '../models/bingo_game.dart';
 void seven() {
   final input = File('input/7.txt').readAsStringSync();
   final bingoGame = BingoGame.fromString(input);
-  print(bingoGame.toString());
+  final winner = bingoGame.findWinner();
+  final score = winner?.score ?? 0;
+  print('Score: $score');
 }
